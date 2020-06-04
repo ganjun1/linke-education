@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mapper3.LecturerDao">
+
+    <resultMap type="cn.entity.Lecturer" id="LecturerMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="statusId" column="status_id" jdbcType="BOOLEAN"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="lecturerUserNo" column="lecturer_user_no" jdbcType="BIGINT"/>
+        <result property="lecturerName" column="lecturer_name" jdbcType="VARCHAR"/>
+        <result property="lecturerMobile" column="lecturer_mobile" jdbcType="VARCHAR"/>
+        <result property="lecturerEmail" column="lecturer_email" jdbcType="VARCHAR"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+        <result property="headImgUrl" column="head_img_url" jdbcType="VARCHAR"/>
+        <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+        <result property="lecturerProportion" column="lecturer_proportion" jdbcType="NUMERIC"/>
+    </resultMap>
+
+    <select id="getLecturerCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from springboot3.lecturer
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="statusId != null">
+                and status_id = #{statusId}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="lecturerUserNo != null">
+                and lecturer_user_no = #{lecturerUserNo}
+            </if>
+            <if test="lecturerName != null and lecturerName != ''">
+                and lecturer_name = #{lecturerName}
+            </if>
+            <if test="lecturerMobile != null and lecturerMobile != ''">
+                and lecturer_mobile = #{lecturerMobile}
+            </if>
+            <if test="lecturerEmail != null and lecturerEmail != ''">
+                and lecturer_email = #{lecturerEmail}
+            </if>
+            <if test="position != null and position != ''">
+                and position = #{position}
+            </if>
+            <if test="headImgUrl != null and headImgUrl != ''">
+                and head_img_url = #{headImgUrl}
+            </if>
+            <if test="introduce != null and introduce != ''">
+                and introduce = #{introduce}
+            </if>
+            <if test="lecturerProportion != null">
+                and lecturer_proportion = #{lecturerProportion}
+            </if>
+        </trim>
+    </select>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="LecturerMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, lecturer_user_no, lecturer_name, lecturer_mobile, lecturer_email, position, head_img_url, introduce, lecturer_proportion
+        from springboot3.lecturer
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="LecturerMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, lecturer_user_no, lecturer_name, lecturer_mobile, lecturer_email, position, head_img_url, introduce, lecturer_proportion
+        from springboot3.lecturer
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="LecturerMap">
+    select
+    id, gmt_create, gmt_modified, status_id, sort, lecturer_user_no, lecturer_name, lecturer_mobile, lecturer_email, position, head_img_url, introduce, lecturer_proportion
+    from springboot3.lecturer
+    <where>
+        <if test="id != null">
+            and id = #{id}
+        </if>
+        <if test="gmtCreate != null">
+            and gmt_create = #{gmtCreate}
+        </if>
+        <if test="gmtModified != null">
+            and gmt_modified = #{gmtModified}
+        </if>
+        <if test="statusId != null">
+            and status_id = #{statusId}
+        </if>
+        <if test="sort != null">
+            and sort = #{sort}
+        </if>
+        <if test="lecturerUserNo != null">
+            and lecturer_user_no = #{lecturerUserNo}
+        </if>
+        <if test="lecturerName != null and lecturerName != ''">
+            and lecturer_name = #{lecturerName}
+        </if>
+        <if test="lecturerMobile != null and lecturerMobile != ''">
+            and lecturer_mobile = #{lecturerMobile}
+        </if>
+        <if test="lecturerEmail != null and lecturerEmail != ''">
+            and lecturer_email = #{lecturerEmail}
+        </if>
+        <if test="position != null and position != ''">
+            and position = #{position}
+        </if>
+        <if test="headImgUrl != null and headImgUrl != ''">
+            and head_img_url = #{headImgUrl}
+        </if>
+        <if test="introduce != null and introduce != ''">
+            and introduce = #{introduce}
+        </if>
+        <if test="lecturerProportion != null">
+            and lecturer_proportion = #{lecturerProportion}
+        </if>
+    </where>
+</select>
+
+    <select id="getListByMap" resultMap="LecturerMap">
+        select
+        id, gmt_create, gmt_modified, status_id, sort, lecturer_user_no, lecturer_name, lecturer_mobile, lecturer_email, position, head_img_url, introduce, lecturer_proportion
+        from springboot3.lecturer
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="statusId != null">
+                and status_id = #{statusId}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="lecturerUserNo != null">
+                and lecturer_user_no = #{lecturerUserNo}
+            </if>
+            <if test="lecturerName != null and lecturerName != ''">
+                and lecturer_name = #{lecturerName}
+            </if>
+            <if test="lecturerMobile != null and lecturerMobile != ''">
+                and lecturer_mobile = #{lecturerMobile}
+            </if>
+            <if test="lecturerEmail != null and lecturerEmail != ''">
+                and lecturer_email = #{lecturerEmail}
+            </if>
+            <if test="position != null and position != ''">
+                and position = #{position}
+            </if>
+            <if test="headImgUrl != null and headImgUrl != ''">
+                and head_img_url = #{headImgUrl}
+            </if>
+            <if test="introduce != null and introduce != ''">
+                and introduce = #{introduce}
+            </if>
+            <if test="lecturerProportion != null">
+                and lecturer_proportion = #{lecturerProportion}
+            </if>
+        </where>
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into springboot3.lecturer(gmt_create, gmt_modified, status_id, sort, lecturer_user_no, lecturer_name, lecturer_mobile, lecturer_email, position, head_img_url, introduce, lecturer_proportion)
+        values (#{gmtCreate}, #{gmtModified}, #{statusId}, #{sort}, #{lecturerUserNo}, #{lecturerName}, #{lecturerMobile}, #{lecturerEmail}, #{position}, #{headImgUrl}, #{introduce}, #{lecturerProportion})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update springboot3.lecturer
+        <set>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="statusId != null">
+                status_id = #{statusId},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="lecturerUserNo != null">
+                lecturer_user_no = #{lecturerUserNo},
+            </if>
+            <if test="lecturerName != null and lecturerName != ''">
+                lecturer_name = #{lecturerName},
+            </if>
+            <if test="lecturerMobile != null and lecturerMobile != ''">
+                lecturer_mobile = #{lecturerMobile},
+            </if>
+            <if test="lecturerEmail != null and lecturerEmail != ''">
+                lecturer_email = #{lecturerEmail},
+            </if>
+            <if test="position != null and position != ''">
+                position = #{position},
+            </if>
+            <if test="headImgUrl != null and headImgUrl != ''">
+                head_img_url = #{headImgUrl},
+            </if>
+            <if test="introduce != null and introduce != ''">
+                introduce = #{introduce},
+            </if>
+            <if test="lecturerProportion != null">
+                lecturer_proportion = #{lecturerProportion},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from springboot3.lecturer where id = #{id}
+    </delete>
+
+</mapper>

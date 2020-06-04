@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mapper2.CurriculumDao">
+
+    <resultMap type="cn.entity.Curriculum" id="CurriculumMap">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="curriculumname" column="curriculumName" jdbcType="VARCHAR"/>
+        <result property="curriculumprice" column="curriculumPrice" jdbcType="INTEGER"/>
+        <result property="curriculumteacherid" column="curriculumTeacherId" jdbcType="INTEGER"/>
+        <result property="curriculumintroduce" column="curriculumIntroduce" jdbcType="OTHER"/>
+        <result property="curriculumcreatetime" column="curriculumCreatetime" jdbcType="OTHER"/>
+        <result property="curriculumcreateid" column="curriculumCreateId" jdbcType="INTEGER"/>
+        <result property="curriculummodifyid" column="curriculumModifyId" jdbcType="INTEGER"/>
+        <result property="curriculummodifytime" column="curriculumModifytime" jdbcType="OTHER"/>
+        <result property="curriculumscreencap" column="curriculumScreencap" jdbcType="VARCHAR"/>
+        <result property="isfree" column="isFree" jdbcType="INTEGER"/>
+        <result property="isputaway" column="isputaway" jdbcType="INTEGER"/>
+        <result property="countbuy" column="countBuy" jdbcType="INTEGER"/>
+        <result property="countstudy" column="countStudy" jdbcType="INTEGER"/>
+        <result property="periodtotal" column="periodTotal" jdbcType="INTEGER"/>
+        <result property="curriculumstatus" column="curriculumStatus" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CurriculumMap">
+        select
+          id, curriculumName, curriculumPrice, curriculumTeacherId, curriculumIntroduce, curriculumCreatetime, curriculumCreateId, curriculumModifyId, curriculumModifytime, curriculumScreencap, isFree, isputaway, countBuy, countStudy, periodTotal, curriculumStatus
+        from springboot2.curriculum
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CurriculumMap">
+        select
+          id, curriculumName, curriculumPrice, curriculumTeacherId, curriculumIntroduce, curriculumCreatetime, curriculumCreateId, curriculumModifyId, curriculumModifytime, curriculumScreencap, isFree, isputaway, countBuy, countStudy, periodTotal, curriculumStatus
+        from springboot2.curriculum
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CurriculumMap">
+        select
+          id, curriculumName, curriculumPrice, curriculumTeacherId, curriculumIntroduce, curriculumCreatetime, curriculumCreateId, curriculumModifyId, curriculumModifytime, curriculumScreencap, isFree, isputaway, countBuy, countStudy, periodTotal, curriculumStatus
+        from springboot2.curriculum
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="curriculumname != null and curriculumname != ''">
+                and curriculumName = #{curriculumname}
+            </if>
+            <if test="curriculumprice != null">
+                and curriculumPrice = #{curriculumprice}
+            </if>
+            <if test="curriculumteacherid != null">
+                and curriculumTeacherId = #{curriculumteacherid}
+            </if>
+            <if test="curriculumintroduce != null">
+                and curriculumIntroduce = #{curriculumintroduce}
+            </if>
+            <if test="curriculumcreatetime != null">
+                and curriculumCreatetime = #{curriculumcreatetime}
+            </if>
+            <if test="curriculumcreateid != null">
+                and curriculumCreateId = #{curriculumcreateid}
+            </if>
+            <if test="curriculummodifyid != null">
+                and curriculumModifyId = #{curriculummodifyid}
+            </if>
+            <if test="curriculummodifytime != null">
+                and curriculumModifytime = #{curriculummodifytime}
+            </if>
+            <if test="curriculumscreencap != null and curriculumscreencap != ''">
+                and curriculumScreencap = #{curriculumscreencap}
+            </if>
+            <if test="isfree != null">
+                and isFree = #{isfree}
+            </if>
+            <if test="isputaway != null">
+                and isputaway = #{isputaway}
+            </if>
+            <if test="countbuy != null">
+                and countBuy = #{countbuy}
+            </if>
+            <if test="countstudy != null">
+                and countStudy = #{countstudy}
+            </if>
+            <if test="periodtotal != null">
+                and periodTotal = #{periodtotal}
+            </if>
+            <if test="curriculumstatus != null">
+                and curriculumStatus = #{curriculumstatus}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into springboot2.curriculum(curriculumName, curriculumPrice, curriculumTeacherId, curriculumIntroduce, curriculumCreatetime, curriculumCreateId, curriculumModifyId, curriculumModifytime, curriculumScreencap, isFree, isputaway, countBuy, countStudy, periodTotal, curriculumStatus)
+        values (#{curriculumname}, #{curriculumprice}, #{curriculumteacherid}, #{curriculumintroduce}, #{curriculumcreatetime}, #{curriculumcreateid}, #{curriculummodifyid}, #{curriculummodifytime}, #{curriculumscreencap}, #{isfree}, #{isputaway}, #{countbuy}, #{countstudy}, #{periodtotal}, #{curriculumstatus})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update springboot2.curriculum
+        <set>
+            <if test="curriculumname != null and curriculumname != ''">
+                curriculumName = #{curriculumname},
+            </if>
+            <if test="curriculumprice != null">
+                curriculumPrice = #{curriculumprice},
+            </if>
+            <if test="curriculumteacherid != null">
+                curriculumTeacherId = #{curriculumteacherid},
+            </if>
+            <if test="curriculumintroduce != null">
+                curriculumIntroduce = #{curriculumintroduce},
+            </if>
+            <if test="curriculumcreatetime != null">
+                curriculumCreatetime = #{curriculumcreatetime},
+            </if>
+            <if test="curriculumcreateid != null">
+                curriculumCreateId = #{curriculumcreateid},
+            </if>
+            <if test="curriculummodifyid != null">
+                curriculumModifyId = #{curriculummodifyid},
+            </if>
+            <if test="curriculummodifytime != null">
+                curriculumModifytime = #{curriculummodifytime},
+            </if>
+            <if test="curriculumscreencap != null and curriculumscreencap != ''">
+                curriculumScreencap = #{curriculumscreencap},
+            </if>
+            <if test="isfree != null">
+                isFree = #{isfree},
+            </if>
+            <if test="isputaway != null">
+                isputaway = #{isputaway},
+            </if>
+            <if test="countbuy != null">
+                countBuy = #{countbuy},
+            </if>
+            <if test="countstudy != null">
+                countStudy = #{countstudy},
+            </if>
+            <if test="periodtotal != null">
+                periodTotal = #{periodtotal},
+            </if>
+            <if test="curriculumstatus != null">
+                curriculumStatus = #{curriculumstatus},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from springboot2.curriculum where id = #{id}
+    </delete>
+
+</mapper>

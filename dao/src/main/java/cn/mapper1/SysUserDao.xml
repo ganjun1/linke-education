@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mapper1.SysUserDao">
+
+    <!--根据用户名查询用户-->
+    <select id="getSysUserByUsername" resultType="cn.entity.SysUser">
+        SELECT * FROM `sys_user` WHERE `username`=#{username}
+    </select>
+
+    <!--根据用户id查询用户权限-->
+    <select id="listGetSysRoleById" resultType="cn.entity.SysRole">
+        SELECT r.`id` AS id,r.`role_name` AS roleName,r.`sort` AS sort,r.`status_id` AS statusId,
+        r.`gmt_create` AS gmtCreate,r.`gmt_modified` AS gmtModified,r.`remark` AS remark
+        FROM `sys_role` r,`sys_role_user` ur
+        WHERE r.`id`=ur.`role_id` AND ur.`user_id`=#{id}
+    </select>
+
+</mapper>

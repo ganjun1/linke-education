@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mapper2.CourseDao">
+
+    <resultMap type="cn.entity.Course" id="CourseMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="statusId" column="status_id" jdbcType="BOOLEAN"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="lecturerUserNo" column="lecturer_user_no" jdbcType="INTEGER"/>
+        <result property="categoryId1" column="category_id1" jdbcType="INTEGER"/>
+        <result property="categoryId2" column="category_id2" jdbcType="INTEGER"/>
+        <result property="categoryId3" column="category_id3" jdbcType="INTEGER"/>
+        <result property="courseName" column="course_name" jdbcType="VARCHAR"/>
+        <result property="courseLogo" column="course_logo" jdbcType="VARCHAR"/>
+        <result property="introduceId" column="introduce_id" jdbcType="INTEGER"/>
+        <result property="isFree" column="is_free" jdbcType="BOOLEAN"/>
+        <result property="courseOriginal" column="course_original" jdbcType="NUMERIC"/>
+        <result property="courseDiscount" column="course_discount" jdbcType="NUMERIC"/>
+        <result property="isPutaway" column="is_putaway" jdbcType="BOOLEAN"/>
+        <result property="courseSort" column="course_sort" jdbcType="INTEGER"/>
+        <result property="countBuy" column="count_buy" jdbcType="INTEGER"/>
+        <result property="countStudy" column="count_study" jdbcType="INTEGER"/>
+        <result property="periodTotal" column="period_total" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CourseMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, lecturer_user_no, category_id1, category_id2, category_id3, course_name, course_logo, introduce_id, is_free, course_original, course_discount, is_putaway, course_sort, count_buy, count_study, period_total
+        from springboot2.course
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CourseMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, lecturer_user_no, category_id1, category_id2, category_id3, course_name, course_logo, introduce_id, is_free, course_original, course_discount, is_putaway, course_sort, count_buy, count_study, period_total
+        from springboot2.course
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="CourseMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, lecturer_user_no, category_id1, category_id2, category_id3, course_name, course_logo, introduce_id, is_free, course_original, course_discount, is_putaway, course_sort, count_buy, count_study, period_total
+        from springboot2.course
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="statusId != null">
+                and status_id = #{statusId}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="lecturerUserNo != null">
+                and lecturer_user_no = #{lecturerUserNo}
+            </if>
+            <if test="categoryId1 != null">
+                and category_id1 = #{categoryId1}
+            </if>
+            <if test="categoryId2 != null">
+                and category_id2 = #{categoryId2}
+            </if>
+            <if test="categoryId3 != null">
+                and category_id3 = #{categoryId3}
+            </if>
+            <if test="courseName != null and courseName != ''">
+                and course_name = #{courseName}
+            </if>
+            <if test="courseLogo != null and courseLogo != ''">
+                and course_logo = #{courseLogo}
+            </if>
+            <if test="introduceId != null">
+                and introduce_id = #{introduceId}
+            </if>
+            <if test="isFree != null">
+                and is_free = #{isFree}
+            </if>
+            <if test="courseOriginal != null">
+                and course_original = #{courseOriginal}
+            </if>
+            <if test="courseDiscount != null">
+                and course_discount = #{courseDiscount}
+            </if>
+            <if test="isPutaway != null">
+                and is_putaway = #{isPutaway}
+            </if>
+            <if test="courseSort != null">
+                and course_sort = #{courseSort}
+            </if>
+            <if test="countBuy != null">
+                and count_buy = #{countBuy}
+            </if>
+            <if test="countStudy != null">
+                and count_study = #{countStudy}
+            </if>
+            <if test="periodTotal != null">
+                and period_total = #{periodTotal}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into springboot2.course(gmt_create, gmt_modified, status_id, sort, lecturer_user_no, category_id1, category_id2, category_id3, course_name, course_logo, introduce_id, is_free, course_original, course_discount, is_putaway, course_sort, count_buy, count_study, period_total)
+        values (#{gmtCreate}, #{gmtModified}, #{statusId}, #{sort}, #{lecturerUserNo}, #{categoryId1}, #{categoryId2}, #{categoryId3}, #{courseName}, #{courseLogo}, #{introduceId}, #{isFree}, #{courseOriginal}, #{courseDiscount}, #{isPutaway}, #{courseSort}, #{countBuy}, #{countStudy}, #{periodTotal})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update springboot2.course
+        <set>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="statusId != null">
+                status_id = #{statusId},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="lecturerUserNo != null">
+                lecturer_user_no = #{lecturerUserNo},
+            </if>
+            <if test="categoryId1 != null">
+                category_id1 = #{categoryId1},
+            </if>
+            <if test="categoryId2 != null">
+                category_id2 = #{categoryId2},
+            </if>
+            <if test="categoryId3 != null">
+                category_id3 = #{categoryId3},
+            </if>
+            <if test="courseName != null and courseName != ''">
+                course_name = #{courseName},
+            </if>
+            <if test="courseLogo != null and courseLogo != ''">
+                course_logo = #{courseLogo},
+            </if>
+            <if test="introduceId != null">
+                introduce_id = #{introduceId},
+            </if>
+            <if test="isFree != null">
+                is_free = #{isFree},
+            </if>
+            <if test="courseOriginal != null">
+                course_original = #{courseOriginal},
+            </if>
+            <if test="courseDiscount != null">
+                course_discount = #{courseDiscount},
+            </if>
+            <if test="isPutaway != null">
+                is_putaway = #{isPutaway},
+            </if>
+            <if test="courseSort != null">
+                course_sort = #{courseSort},
+            </if>
+            <if test="countBuy != null">
+                count_buy = #{countBuy},
+            </if>
+            <if test="countStudy != null">
+                count_study = #{countStudy},
+            </if>
+            <if test="periodTotal != null">
+                period_total = #{periodTotal},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from springboot2.course where id = #{id}
+    </delete>
+
+
+    <select id="getListByMap" resultMap="CourseMap">
+        select
+        id, gmt_create, gmt_modified, status_id, sort, lecturer_user_no, category_id1, category_id2, category_id3, course_name, course_logo, introduce_id, is_free, course_original, course_discount, is_putaway, course_sort, count_buy, count_study, period_total
+        from springboot2.course
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="statusId != null">
+                and status_id = #{statusId}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="lecturerUserNo != null">
+                and lecturer_user_no = #{lecturerUserNo}
+            </if>
+            <if test="categoryId1 != null">
+                and category_id1 = #{categoryId1}
+            </if>
+            <if test="categoryId2 != null">
+                and category_id2 = #{categoryId2}
+            </if>
+            <if test="categoryId3 != null">
+                and category_id3 = #{categoryId3}
+            </if>
+            <if test="courseName != null and courseName != ''">
+                and course_name = #{courseName}
+            </if>
+            <if test="courseLogo != null and courseLogo != ''">
+                and course_logo = #{courseLogo}
+            </if>
+            <if test="introduceId != null">
+                and introduce_id = #{introduceId}
+            </if>
+            <if test="isFree != null">
+                and is_free = #{isFree}
+            </if>
+            <if test="courseOriginal != null">
+                and course_original = #{courseOriginal}
+            </if>
+            <if test="courseDiscount != null">
+                and course_discount = #{courseDiscount}
+            </if>
+            <if test="isPutaway != null">
+                and is_putaway = #{isPutaway}
+            </if>
+            <if test="courseSort != null">
+                and course_sort = #{courseSort}
+            </if>
+            <if test="countBuy != null">
+                and count_buy = #{countBuy}
+            </if>
+            <if test="countStudy != null">
+                and count_study = #{countStudy}
+            </if>
+            <if test="periodTotal != null">
+                and period_total = #{periodTotal}
+            </if>
+        </where>
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="getCourseCountByMap" resultType="Integer"  parameterType="java.util.Map">
+        select count(*) from springboot2.course
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="statusId != null">
+                and status_id = #{statusId}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="lecturerUserNo != null">
+                and lecturer_user_no = #{lecturerUserNo}
+            </if>
+            <if test="categoryId1 != null">
+                and category_id1 = #{categoryId1}
+            </if>
+            <if test="categoryId2 != null">
+                and category_id2 = #{categoryId2}
+            </if>
+            <if test="categoryId3 != null">
+                and category_id3 = #{categoryId3}
+            </if>
+            <if test="courseName != null and courseName != ''">
+                and course_name = #{courseName}
+            </if>
+            <if test="courseLogo != null and courseLogo != ''">
+                and course_logo = #{courseLogo}
+            </if>
+            <if test="introduceId != null">
+                and introduce_id = #{introduceId}
+            </if>
+            <if test="isFree != null">
+                and is_free = #{isFree}
+            </if>
+            <if test="courseOriginal != null">
+                and course_original = #{courseOriginal}
+            </if>
+            <if test="courseDiscount != null">
+                and course_discount = #{courseDiscount}
+            </if>
+            <if test="isPutaway != null">
+                and is_putaway = #{isPutaway}
+            </if>
+            <if test="courseSort != null">
+                and course_sort = #{courseSort}
+            </if>
+            <if test="countBuy != null">
+                and count_buy = #{countBuy}
+            </if>
+            <if test="countStudy != null">
+                and count_study = #{countStudy}
+            </if>
+            <if test="periodTotal != null">
+                and period_total = #{periodTotal}
+            </if>
+        </trim>
+    </select>
+
+</mapper>

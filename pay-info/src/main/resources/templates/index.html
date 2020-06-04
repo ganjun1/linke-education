@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+订单号：<input id="orderNo" type="text"/>
+
+
+<input type="button" value="支付" id="pay"/>
+
+<div id="code">
+
+</div>
+
+<script type="text/javascript" src="/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="/qrcode.js"></script>
+<script type="text/javascript">
+
+    $("#pay").click(function(){
+        $.ajax({
+            url:"createCode/"+$("#orderNo").val(),
+            type:"GET",
+            success:function(data){
+                //参数1表示图像大小，取值范围1-10；参数2表示质量，取值范围'L','M','Q','H'
+                var qr = qrcode(10, 'H');
+
+                qr.addData(data.data.code_url);
+                qr.make();
+
+                $("#code").html(qr.createImgTag());
+                setInterval(query,5000);
+            }
+
+        });
+    });
+
+    function query(){
+        $.ajax({
+            url:"queryOrderStatus/"+$("#orderNo").val(),
+            type:"GET",
+            success:function(data){
+                console.log(data);
+                if(data.success=="true"){
+                    location.href="success";
+                    /*?orderNo="+orderNo+"&count="+count+"&roomId="+roomId+"&startTime="+startTime+"&endTime="+endTime*/
+                }
+            },
+            error:function(e){
+                console.log(e);
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

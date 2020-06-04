@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mapper2.OrderInfoDao">
+
+    <resultMap type="cn.entity.OrderInfo" id="OrderInfoMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="lecturerUserNo" column="lecturer_user_no" jdbcType="INTEGER"/>
+        <result property="lecturerName" column="lecturer_name" jdbcType="VARCHAR"/>
+        <result property="userNo" column="user_no" jdbcType="INTEGER"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="registerTime" column="register_time" jdbcType="TIMESTAMP"/>
+        <result property="orderNo" column="order_no" jdbcType="INTEGER"/>
+        <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+        <result property="courseName" column="course_name" jdbcType="VARCHAR"/>
+        <result property="pricePayable" column="price_payable" jdbcType="NUMERIC"/>
+        <result property="priceDiscount" column="price_discount" jdbcType="NUMERIC"/>
+        <result property="pricePaid" column="price_paid" jdbcType="NUMERIC"/>
+        <result property="platformProfit" column="platform_profit" jdbcType="NUMERIC"/>
+        <result property="lecturerProfit" column="lecturer_profit" jdbcType="NUMERIC"/>
+        <result property="tradeType" column="trade_type" jdbcType="BOOLEAN"/>
+        <result property="payType" column="pay_type" jdbcType="BOOLEAN"/>
+        <result property="channelType" column="channel_type" jdbcType="BOOLEAN"/>
+        <result property="orderStatus" column="order_status" jdbcType="BOOLEAN"/>
+        <result property="isShowLecturer" column="is_show_lecturer" jdbcType="BOOLEAN"/>
+        <result property="isShowUser" column="is_show_user" jdbcType="BOOLEAN"/>
+        <result property="remarkCus" column="remark_cus" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+        <result property="payTime" column="pay_time" jdbcType="TIMESTAMP"/>
+        <result property="payno" column="pay_no" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="OrderInfoMap">
+        select
+          id, gmt_create, gmt_modified, lecturer_user_no, lecturer_name, user_no, mobile, register_time, order_no, course_id, course_name, price_payable, price_discount, price_paid, platform_profit, lecturer_profit, trade_type, pay_type, channel_type, order_status, is_show_lecturer, is_show_user, remark_cus, remark, pay_time,pay_no
+        from springboot2.order_info
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="OrderInfoMap">
+        select
+          id, gmt_create, gmt_modified, lecturer_user_no, lecturer_name, user_no, mobile, register_time, order_no, course_id, course_name, price_payable, price_discount, price_paid, platform_profit, lecturer_profit, trade_type, pay_type, channel_type, order_status, is_show_lecturer, is_show_user, remark_cus, remark, pay_time,pay_no
+        from springboot2.order_info
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="OrderInfoMap">
+        select
+          id, gmt_create, gmt_modified, lecturer_user_no, lecturer_name, user_no, mobile, register_time, order_no, course_id, course_name, price_payable, price_discount, price_paid, platform_profit, lecturer_profit, trade_type, pay_type, channel_type, order_status, is_show_lecturer, is_show_user, remark_cus, remark, pay_time,pay_no
+        from springboot2.order_info
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="lecturerUserNo != null">
+                and lecturer_user_no = #{lecturerUserNo}
+            </if>
+            <if test="lecturerName != null and lecturerName != ''">
+                and lecturer_name = #{lecturerName}
+            </if>
+            <if test="userNo != null">
+                and user_no = #{userNo}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="registerTime != null">
+                and register_time = #{registerTime}
+            </if>
+            <if test="orderNo != null">
+                and order_no = #{orderNo}
+            </if>
+            <if test="courseId != null">
+                and course_id = #{courseId}
+            </if>
+            <if test="courseName != null and courseName != ''">
+                and course_name = #{courseName}
+            </if>
+            <if test="pricePayable != null">
+                and price_payable = #{pricePayable}
+            </if>
+            <if test="priceDiscount != null">
+                and price_discount = #{priceDiscount}
+            </if>
+            <if test="pricePaid != null">
+                and price_paid = #{pricePaid}
+            </if>
+            <if test="platformProfit != null">
+                and platform_profit = #{platformProfit}
+            </if>
+            <if test="lecturerProfit != null">
+                and lecturer_profit = #{lecturerProfit}
+            </if>
+            <if test="tradeType != null">
+                and trade_type = #{tradeType}
+            </if>
+            <if test="payType != null">
+                and pay_type = #{payType}
+            </if>
+            <if test="channelType != null">
+                and channel_type = #{channelType}
+            </if>
+            <if test="orderStatus != null">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="isShowLecturer != null">
+                and is_show_lecturer = #{isShowLecturer}
+            </if>
+            <if test="isShowUser != null">
+                and is_show_user = #{isShowUser}
+            </if>
+            <if test="remarkCus != null and remarkCus != ''">
+                and remark_cus = #{remarkCus}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+            <if test="payTime != null">
+                and pay_time = #{payTime}
+            </if>
+            <if test="payno != null">
+                and pay_no = #{payno}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" >
+        insert into springboot2.order_info(gmt_create, gmt_modified, lecturer_user_no, lecturer_name, user_no, mobile, register_time, order_no, course_id, course_name, price_payable, price_discount, price_paid, platform_profit, lecturer_profit, trade_type, pay_type, channel_type, order_status, is_show_lecturer, is_show_user, remark_cus, remark, pay_time,pay_no)
+        values (#{gmtCreate}, #{gmtModified}, #{lecturerUserNo}, #{lecturerName}, #{userNo}, #{mobile}, #{registerTime}, #{orderNo}, #{courseId}, #{courseName}, #{pricePayable}, #{priceDiscount}, #{pricePaid}, #{platformProfit}, #{lecturerProfit}, #{tradeType}, #{payType}, #{channelType}, #{orderStatus}, #{isShowLecturer}, #{isShowUser}, #{remarkCus}, #{remark}, #{payTime},#{payno})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update springboot2.order_info
+        <set>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="lecturerUserNo != null">
+                lecturer_user_no = #{lecturerUserNo},
+            </if>
+            <if test="lecturerName != null and lecturerName != ''">
+                lecturer_name = #{lecturerName},
+            </if>
+            <if test="userNo != null">
+                user_no = #{userNo},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile},
+            </if>
+            <if test="registerTime != null">
+                register_time = #{registerTime},
+            </if>
+            <if test="orderNo != null">
+                order_no = #{orderNo},
+            </if>
+            <if test="courseId != null">
+                course_id = #{courseId},
+            </if>
+            <if test="courseName != null and courseName != ''">
+                course_name = #{courseName},
+            </if>
+            <if test="pricePayable != null">
+                price_payable = #{pricePayable},
+            </if>
+            <if test="priceDiscount != null">
+                price_discount = #{priceDiscount},
+            </if>
+            <if test="pricePaid != null">
+                price_paid = #{pricePaid},
+            </if>
+            <if test="platformProfit != null">
+                platform_profit = #{platformProfit},
+            </if>
+            <if test="lecturerProfit != null">
+                lecturer_profit = #{lecturerProfit},
+            </if>
+            <if test="tradeType != null">
+                trade_type = #{tradeType},
+            </if>
+            <if test="payType != null">
+                pay_type = #{payType},
+            </if>
+            <if test="channelType != null">
+                channel_type = #{channelType},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus},
+            </if>
+            <if test="isShowLecturer != null">
+                is_show_lecturer = #{isShowLecturer},
+            </if>
+            <if test="isShowUser != null">
+                is_show_user = #{isShowUser},
+            </if>
+            <if test="remarkCus != null and remarkCus != ''">
+                remark_cus = #{remarkCus},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="payTime != null">
+                pay_time = #{payTime},
+            </if>
+            <if test="payno != null">
+                and pay_no = #{payno}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from springboot2.order_info where id = #{id}
+    </delete>
+
+</mapper>

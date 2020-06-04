@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mapper1.MsgUserDao">
+
+    <resultMap type="cn.entity.MsgUser" id="MsgUserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="statusId" column="status_id" jdbcType="OTHER"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="msgId" column="msg_id" jdbcType="INTEGER"/>
+        <result property="userNo" column="user_no" jdbcType="INTEGER"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="msgType" column="msg_type" jdbcType="OTHER"/>
+        <result property="msgTitle" column="msg_title" jdbcType="VARCHAR"/>
+        <result property="isRead" column="is_read" jdbcType="OTHER"/>
+        <result property="isTop" column="is_top" jdbcType="OTHER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="MsgUserMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, msg_id, user_no, mobile, msg_type, msg_title, is_read, is_top
+        from springboot.msg_user
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="MsgUserMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, msg_id, user_no, mobile, msg_type, msg_title, is_read, is_top
+        from springboot.msg_user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="MsgUserMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, msg_id, user_no, mobile, msg_type, msg_title, is_read, is_top
+        from springboot.msg_user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="statusId != null">
+                and status_id = #{statusId}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="msgId != null">
+                and msg_id = #{msgId}
+            </if>
+            <if test="userNo != null">
+                and user_no = #{userNo}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="msgType != null">
+                and msg_type = #{msgType}
+            </if>
+            <if test="msgTitle != null and msgTitle != ''">
+                and msg_title = #{msgTitle}
+            </if>
+            <if test="isRead != null">
+                and is_read = #{isRead}
+            </if>
+            <if test="isTop != null">
+                and is_top = #{isTop}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into springboot.msg_user(gmt_create, gmt_modified, status_id, sort, msg_id, user_no, mobile, msg_type, msg_title, is_read, is_top)
+        values (#{gmtCreate}, #{gmtModified}, #{statusId}, #{sort}, #{msgId}, #{userNo}, #{mobile}, #{msgType}, #{msgTitle}, #{isRead}, #{isTop})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update springboot.msg_user
+        <set>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="statusId != null">
+                status_id = #{statusId},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="msgId != null">
+                msg_id = #{msgId},
+            </if>
+            <if test="userNo != null">
+                user_no = #{userNo},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile},
+            </if>
+            <if test="msgType != null">
+                msg_type = #{msgType},
+            </if>
+            <if test="msgTitle != null and msgTitle != ''">
+                msg_title = #{msgTitle},
+            </if>
+            <if test="isRead != null">
+                is_read = #{isRead},
+            </if>
+            <if test="isTop != null">
+                is_top = #{isTop},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from springboot.msg_user where id = #{id}
+    </delete>
+
+</mapper>

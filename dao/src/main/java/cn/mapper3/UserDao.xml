@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mapper3.UserDao">
+
+    <resultMap type="cn.entity.User" id="UserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="statusId" column="status_id" jdbcType="BOOLEAN"/>
+        <result property="userNo" column="user_no" jdbcType="BIGINT"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="mobileSalt" column="mobile_salt" jdbcType="VARCHAR"/>
+        <result property="mobilePsw" column="mobile_psw" jdbcType="VARCHAR"/>
+        <result property="userSource" column="user_source" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UserMap">
+        select
+          id, gmt_create, gmt_modified, status_id, user_no, mobile, mobile_salt, mobile_psw, user_source
+        from springboot3.user
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UserMap">
+        select
+          id, gmt_create, gmt_modified, status_id, user_no, mobile, mobile_salt, mobile_psw, user_source
+        from springboot3.user
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="UserMap">
+        select
+          id, gmt_create, gmt_modified, status_id, user_no, mobile, mobile_salt, mobile_psw, user_source
+        from springboot3.user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="statusId != null">
+                and status_id = #{statusId}
+            </if>
+            <if test="userNo != null">
+                and user_no = #{userNo}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="mobileSalt != null and mobileSalt != ''">
+                and mobile_salt = #{mobileSalt}
+            </if>
+            <if test="mobilePsw != null and mobilePsw != ''">
+                and mobile_psw = #{mobilePsw}
+            </if>
+            <if test="userSource != null and userSource != ''">
+                and user_source = #{userSource}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryAll2" resultMap="UserMap">
+        select
+        id, gmt_create, gmt_modified, status_id, user_no, mobile, mobile_salt, mobile_psw, user_source
+        from springboot3.user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="statusId != null">
+                and status_id = #{statusId}
+            </if>
+            <if test="userNo != null">
+                and user_no = #{userNo}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                and mobile = #{mobile}
+            </if>
+            <if test="mobileSalt != null and mobileSalt != ''">
+                and mobile_salt = #{mobileSalt}
+            </if>
+            <if test="mobilePsw != null and mobilePsw != ''">
+                and mobile_psw = #{mobilePsw}
+            </if>
+            <if test="userSource != null and userSource != ''">
+                and user_source = #{userSource}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into springboot3.user(gmt_create, gmt_modified, status_id, user_no, mobile, mobile_salt, mobile_psw, user_source)
+        values (#{gmtCreate}, #{gmtModified}, #{statusId}, #{userNo}, #{mobile}, #{mobileSalt}, #{mobilePsw}, #{userSource})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update springboot3.user
+        <set>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="statusId != null">
+                status_id = #{statusId},
+            </if>
+            <if test="userNo != null">
+                user_no = #{userNo},
+            </if>
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile},
+            </if>
+            <if test="mobileSalt != null and mobileSalt != ''">
+                mobile_salt = #{mobileSalt},
+            </if>
+            <if test="mobilePsw != null and mobilePsw != ''">
+                mobile_psw = #{mobilePsw},
+            </if>
+            <if test="userSource != null and userSource != ''">
+                user_source = #{userSource},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from springboot3.user where id = #{id}
+    </delete>
+
+</mapper>

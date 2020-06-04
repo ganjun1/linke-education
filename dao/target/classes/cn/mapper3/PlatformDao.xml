@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mapper3.PlatformDao">
+
+    <resultMap type="cn.entity.Platform" id="PlatformMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="statusId" column="status_id" jdbcType="BOOLEAN"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="clientId" column="client_id" jdbcType="VARCHAR"/>
+        <result property="clientSecret" column="client_secret" jdbcType="VARCHAR"/>
+        <result property="clientName" column="client_name" jdbcType="VARCHAR"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PlatformMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, client_id, client_secret, client_name, remark
+        from springboot3.platform
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PlatformMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, client_id, client_secret, client_name, remark
+        from springboot3.platform
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="PlatformMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, client_id, client_secret, client_name, remark
+        from springboot3.platform
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="statusId != null">
+                and status_id = #{statusId}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="clientId != null and clientId != ''">
+                and client_id = #{clientId}
+            </if>
+            <if test="clientSecret != null and clientSecret != ''">
+                and client_secret = #{clientSecret}
+            </if>
+            <if test="clientName != null and clientName != ''">
+                and client_name = #{clientName}
+            </if>
+            <if test="remark != null and remark != ''">
+                and remark = #{remark}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into springboot3.platform(gmt_create, gmt_modified, status_id, sort, client_id, client_secret, client_name, remark)
+        values (#{gmtCreate}, #{gmtModified}, #{statusId}, #{sort}, #{clientId}, #{clientSecret}, #{clientName}, #{remark})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update springboot3.platform
+        <set>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="statusId != null">
+                status_id = #{statusId},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="clientId != null and clientId != ''">
+                client_id = #{clientId},
+            </if>
+            <if test="clientSecret != null and clientSecret != ''">
+                client_secret = #{clientSecret},
+            </if>
+            <if test="clientName != null and clientName != ''">
+                client_name = #{clientName},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from springboot3.platform where id = #{id}
+    </delete>
+
+</mapper>

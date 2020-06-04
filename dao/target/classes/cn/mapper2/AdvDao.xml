@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mapper2.AdvDao">
+
+    <resultMap type="cn.entity.Adv" id="AdvMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="statusId" column="status_id" jdbcType="BOOLEAN"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="advTitle" column="adv_title" jdbcType="VARCHAR"/>
+        <result property="advImg" column="adv_img" jdbcType="VARCHAR"/>
+        <result property="advUrl" column="adv_url" jdbcType="VARCHAR"/>
+        <result property="advTarget" column="adv_target" jdbcType="VARCHAR"/>
+        <result property="advLocation" column="adv_location" jdbcType="BOOLEAN"/>
+        <result property="beginTime" column="begin_time" jdbcType="TIMESTAMP"/>
+        <result property="endTime" column="end_time" jdbcType="TIMESTAMP"/>
+        <result property="platShow" column="plat_show" jdbcType="BOOLEAN"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="AdvMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, adv_title, adv_img, adv_url, adv_target, adv_location, begin_time, end_time, plat_show
+        from springboot2.adv
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="AdvMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, adv_title, adv_img, adv_url, adv_target, adv_location, begin_time, end_time, plat_show
+        from springboot2.adv
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="AdvMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, adv_title, adv_img, adv_url, adv_target, adv_location, begin_time, end_time, plat_show
+        from springboot2.adv
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="statusId != null">
+                and status_id = #{statusId}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="advTitle != null and advTitle != ''">
+                and adv_title = #{advTitle}
+            </if>
+            <if test="advImg != null and advImg != ''">
+                and adv_img = #{advImg}
+            </if>
+            <if test="advUrl != null and advUrl != ''">
+                and adv_url = #{advUrl}
+            </if>
+            <if test="advTarget != null and advTarget != ''">
+                and adv_target = #{advTarget}
+            </if>
+            <if test="advLocation != null">
+                and adv_location = #{advLocation}
+            </if>
+            <if test="beginTime != null">
+                and begin_time = #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test="platShow != null">
+                and plat_show = #{platShow}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into springboot2.adv(gmt_create, gmt_modified, status_id, sort, adv_title, adv_img, adv_url, adv_target, adv_location, begin_time, end_time, plat_show)
+        values (#{gmtCreate}, #{gmtModified}, #{statusId}, #{sort}, #{advTitle}, #{advImg}, #{advUrl}, #{advTarget}, #{advLocation}, #{beginTime}, #{endTime}, #{platShow})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update springboot2.adv
+        <set>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="statusId != null">
+                status_id = #{statusId},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="advTitle != null and advTitle != ''">
+                adv_title = #{advTitle},
+            </if>
+            <if test="advImg != null and advImg != ''">
+                adv_img = #{advImg},
+            </if>
+            <if test="advUrl != null and advUrl != ''">
+                adv_url = #{advUrl},
+            </if>
+            <if test="advTarget != null and advTarget != ''">
+                adv_target = #{advTarget},
+            </if>
+            <if test="advLocation != null">
+                adv_location = #{advLocation},
+            </if>
+            <if test="beginTime != null">
+                begin_time = #{beginTime},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+            <if test="platShow != null">
+                plat_show = #{platShow},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from springboot2.adv where id = #{id}
+    </delete>
+
+</mapper>

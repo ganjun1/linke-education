@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.mapper1.WebsiteDao">
+
+    <resultMap type="cn.entity.Website" id="WebsiteMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="statusId" column="status_id" jdbcType="BOOLEAN"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
+        <result property="logoIco" column="logo_ico" jdbcType="VARCHAR"/>
+        <result property="logoImg" column="logo_img" jdbcType="VARCHAR"/>
+        <result property="websiteTitle" column="website_title" jdbcType="VARCHAR"/>
+        <result property="websiteKeyword" column="website_keyword" jdbcType="VARCHAR"/>
+        <result property="websiteDesc" column="website_desc" jdbcType="VARCHAR"/>
+        <result property="copyright" column="copyright" jdbcType="VARCHAR"/>
+        <result property="icp" column="icp" jdbcType="VARCHAR"/>
+        <result property="prn" column="prn" jdbcType="VARCHAR"/>
+        <result property="weixin" column="weixin" jdbcType="VARCHAR"/>
+        <result property="weixinXcx" column="weixin_xcx" jdbcType="VARCHAR"/>
+        <result property="weibo" column="weibo" jdbcType="VARCHAR"/>
+        <result property="isEnableStatistics" column="is_enable_statistics" jdbcType="BOOLEAN"/>
+        <result property="statisticsCode" column="statistics_code" jdbcType="VARCHAR"/>
+        <result property="isShowService" column="is_show_service" jdbcType="BOOLEAN"/>
+        <result property="service1" column="service1" jdbcType="VARCHAR"/>
+        <result property="service2" column="service2" jdbcType="VARCHAR"/>
+        <result property="userAgreement" column="user_agreement" jdbcType="VARCHAR"/>
+        <result property="recruitTitle" column="recruit_title" jdbcType="VARCHAR"/>
+        <result property="recruitInfo" column="recruit_info" jdbcType="VARCHAR"/>
+        <result property="entryAgreement" column="entry_agreement" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WebsiteMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, logo_ico, logo_img, website_title, website_keyword, website_desc, copyright, icp, prn, weixin, weixin_xcx, weibo, is_enable_statistics, statistics_code, is_show_service, service1, service2, user_agreement, recruit_title, recruit_info, entry_agreement
+        from springboot1.website
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="WebsiteMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, logo_ico, logo_img, website_title, website_keyword, website_desc, copyright, icp, prn, weixin, weixin_xcx, weibo, is_enable_statistics, statistics_code, is_show_service, service1, service2, user_agreement, recruit_title, recruit_info, entry_agreement
+        from springboot1.website
+        limit #{offset}, #{limit}
+    </select>
+
+    <!--通过实体作为筛选条件查询-->
+    <select id="queryAll" resultMap="WebsiteMap">
+        select
+          id, gmt_create, gmt_modified, status_id, sort, logo_ico, logo_img, website_title, website_keyword, website_desc, copyright, icp, prn, weixin, weixin_xcx, weibo, is_enable_statistics, statistics_code, is_show_service, service1, service2, user_agreement, recruit_title, recruit_info, entry_agreement
+        from springboot1.website
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="statusId != null">
+                and status_id = #{statusId}
+            </if>
+            <if test="sort != null">
+                and sort = #{sort}
+            </if>
+            <if test="logoIco != null and logoIco != ''">
+                and logo_ico = #{logoIco}
+            </if>
+            <if test="logoImg != null and logoImg != ''">
+                and logo_img = #{logoImg}
+            </if>
+            <if test="websiteTitle != null and websiteTitle != ''">
+                and website_title = #{websiteTitle}
+            </if>
+            <if test="websiteKeyword != null and websiteKeyword != ''">
+                and website_keyword = #{websiteKeyword}
+            </if>
+            <if test="websiteDesc != null and websiteDesc != ''">
+                and website_desc = #{websiteDesc}
+            </if>
+            <if test="copyright != null and copyright != ''">
+                and copyright = #{copyright}
+            </if>
+            <if test="icp != null and icp != ''">
+                and icp = #{icp}
+            </if>
+            <if test="prn != null and prn != ''">
+                and prn = #{prn}
+            </if>
+            <if test="weixin != null and weixin != ''">
+                and weixin = #{weixin}
+            </if>
+            <if test="weixinXcx != null and weixinXcx != ''">
+                and weixin_xcx = #{weixinXcx}
+            </if>
+            <if test="weibo != null and weibo != ''">
+                and weibo = #{weibo}
+            </if>
+            <if test="isEnableStatistics != null">
+                and is_enable_statistics = #{isEnableStatistics}
+            </if>
+            <if test="statisticsCode != null and statisticsCode != ''">
+                and statistics_code = #{statisticsCode}
+            </if>
+            <if test="isShowService != null">
+                and is_show_service = #{isShowService}
+            </if>
+            <if test="service1 != null and service1 != ''">
+                and service1 = #{service1}
+            </if>
+            <if test="service2 != null and service2 != ''">
+                and service2 = #{service2}
+            </if>
+            <if test="userAgreement != null and userAgreement != ''">
+                and user_agreement = #{userAgreement}
+            </if>
+            <if test="recruitTitle != null and recruitTitle != ''">
+                and recruit_title = #{recruitTitle}
+            </if>
+            <if test="recruitInfo != null and recruitInfo != ''">
+                and recruit_info = #{recruitInfo}
+            </if>
+            <if test="entryAgreement != null and entryAgreement != ''">
+                and entry_agreement = #{entryAgreement}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into springboot1.website(gmt_create, gmt_modified, status_id, sort, logo_ico, logo_img, website_title, website_keyword, website_desc, copyright, icp, prn, weixin, weixin_xcx, weibo, is_enable_statistics, statistics_code, is_show_service, service1, service2, user_agreement, recruit_title, recruit_info, entry_agreement)
+        values (#{gmtCreate}, #{gmtModified}, #{statusId}, #{sort}, #{logoIco}, #{logoImg}, #{websiteTitle}, #{websiteKeyword}, #{websiteDesc}, #{copyright}, #{icp}, #{prn}, #{weixin}, #{weixinXcx}, #{weibo}, #{isEnableStatistics}, #{statisticsCode}, #{isShowService}, #{service1}, #{service2}, #{userAgreement}, #{recruitTitle}, #{recruitInfo}, #{entryAgreement})
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update springboot1.website
+        <set>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="statusId != null">
+                status_id = #{statusId},
+            </if>
+            <if test="sort != null">
+                sort = #{sort},
+            </if>
+            <if test="logoIco != null and logoIco != ''">
+                logo_ico = #{logoIco},
+            </if>
+            <if test="logoImg != null and logoImg != ''">
+                logo_img = #{logoImg},
+            </if>
+            <if test="websiteTitle != null and websiteTitle != ''">
+                website_title = #{websiteTitle},
+            </if>
+            <if test="websiteKeyword != null and websiteKeyword != ''">
+                website_keyword = #{websiteKeyword},
+            </if>
+            <if test="websiteDesc != null and websiteDesc != ''">
+                website_desc = #{websiteDesc},
+            </if>
+            <if test="copyright != null and copyright != ''">
+                copyright = #{copyright},
+            </if>
+            <if test="icp != null and icp != ''">
+                icp = #{icp},
+            </if>
+            <if test="prn != null and prn != ''">
+                prn = #{prn},
+            </if>
+            <if test="weixin != null and weixin != ''">
+                weixin = #{weixin},
+            </if>
+            <if test="weixinXcx != null and weixinXcx != ''">
+                weixin_xcx = #{weixinXcx},
+            </if>
+            <if test="weibo != null and weibo != ''">
+                weibo = #{weibo},
+            </if>
+            <if test="isEnableStatistics != null">
+                is_enable_statistics = #{isEnableStatistics},
+            </if>
+            <if test="statisticsCode != null and statisticsCode != ''">
+                statistics_code = #{statisticsCode},
+            </if>
+            <if test="isShowService != null">
+                is_show_service = #{isShowService},
+            </if>
+            <if test="service1 != null and service1 != ''">
+                service1 = #{service1},
+            </if>
+            <if test="service2 != null and service2 != ''">
+                service2 = #{service2},
+            </if>
+            <if test="userAgreement != null and userAgreement != ''">
+                user_agreement = #{userAgreement},
+            </if>
+            <if test="recruitTitle != null and recruitTitle != ''">
+                recruit_title = #{recruitTitle},
+            </if>
+            <if test="recruitInfo != null and recruitInfo != ''">
+                recruit_info = #{recruitInfo},
+            </if>
+            <if test="entryAgreement != null and entryAgreement != ''">
+                entry_agreement = #{entryAgreement},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from springboot1.website where id = #{id}
+    </delete>
+
+</mapper>
