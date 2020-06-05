@@ -6,11 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="entity" />
         <module name="system" />
+        <module name="entity" />
+        <module name="pay-info" />
         <module name="solr_search" />
         <module name="dao" />
-        <module name="pay-info" />
         <module name="utils" />
         <module name="seckill" />
       </profile>
